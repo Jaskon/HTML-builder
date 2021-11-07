@@ -35,9 +35,17 @@ function copyEntitiesRecursively(from, to) {
   });
 }
 
-const dirPath = path.resolve('./04-copy-directory/files');
-const dirPathNew = path.resolve('./04-copy-directory/files-copy');
+function copyDirectory(from, to) {
+  fs.mkdir(to, {recursive: true}).then(() => {
+    copyEntitiesRecursively(from, to);
+  });
+}
 
-fs.mkdir(dirPathNew, { recursive: true }).then(() => {
-  copyEntitiesRecursively(dirPath, dirPathNew);
-});
+
+copyDirectory(
+  path.resolve(__dirname, './files'),
+  path.resolve(__dirname, './files-copy')
+);
+
+
+module.exports = copyDirectory;
