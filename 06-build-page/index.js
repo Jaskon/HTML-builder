@@ -23,7 +23,7 @@ fs.mkdir(path.resolve(__dirname, './project-dist'), { recursive: true }).then(()
         .map(entity => path.basename(entity.name, '.html'));
 
       // Match the '{{...}}' expressions
-      const matched = [...buf.toString().matchAll(/{{(.+)}}/g)];
+      const matched = [...buf.toString().matchAll(/{{(.+?)}}/g)];
       const promises = matched.reverse().map(one => {
         if (componentNames.includes(one[1])) {
           return fs.readFile(path.resolve(__dirname, `./components/${one[1]}.html`)).then(component => {
